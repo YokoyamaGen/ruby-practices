@@ -22,12 +22,16 @@ month_beginning = Date.new(year, month, 1)
 month_end = Date.new(year, month, -1)
 
 puts "#{month}月 #{year}".center(21) 
-puts " 日 月 火 水 木 金 土"
+puts "日 月 火 水 木 金 土"
 
-default_output_width = 3
-printf("%#{month_beginning.wday * default_output_width}s", "")
+WIDTH = 3
+calculate_width = month_beginning.sunday? ? 0 : 1
+print " " * (month_beginning.wday * WIDTH - calculate_width)
 
 (month_beginning..month_end).each do |calendar_day|
   new_line = calendar_day.saturday? || calendar_day == month_end ? "\n" : ""
-  printf("%#{default_output_width}d#{new_line}", calendar_day.day)
+  width = calendar_day.sunday? ? 2 : 3
+  printf("%#{width}d#{new_line}", calendar_day.day)
 end
+
+puts
