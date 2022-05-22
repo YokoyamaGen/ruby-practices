@@ -25,13 +25,11 @@ puts "#{month}月 #{year}".center(21)
 puts "日 月 火 水 木 金 土"
 
 WIDTH = 3
-calculate_width = month_beginning.sunday? ? 0 : 1
-print " " * (month_beginning.wday * WIDTH - calculate_width)
+print " " * (month_beginning.wday * WIDTH)
 
 (month_beginning..month_end).each do |calendar_day|
-  new_line = calendar_day.saturday? || calendar_day == month_end ? "\n" : ""
-  width = calendar_day.sunday? ? 2 : 3
-  printf("%#{width}d#{new_line}", calendar_day.day)
+  print calendar_day.day.to_s.center(WIDTH)
+  puts if calendar_day.saturday? || calendar_day == month_end
 end
 
 puts
